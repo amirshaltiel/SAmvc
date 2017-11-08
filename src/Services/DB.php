@@ -74,6 +74,7 @@ class DB {
         $fieldNames = implode('`, `', array_keys($data));
         $fieldValues = ':'.implode(', :', array_keys($data));
         $pdo = self::init();
+        $pdo->setAttribute(PDO::MYSQL_ATTR_MAX_BUFFER_SIZE, 1024*1024*50);  // 50 MB 
         $sth = $pdo->prepare("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
 
         foreach ($data as $key => $value)
